@@ -6,6 +6,7 @@ app.use(logger);
 app.use(express.static("public"));
 
 app.set("view engine", "ejs");
+app.use(express.urlencoded({ extended: true })); //add this middleware to get the form values from body
 
 app.get("/home", homePagelogger, (req, res) => {
   res.status(500).send("Hi");
@@ -20,7 +21,9 @@ app.get("/index", (req, res) => {
 });
 
 const userRouter = require("./router/users");
+const registrationRouter = require("./router/registration");
 app.use("/users", userRouter);
+app.use("/registration", registrationRouter);
 
 function logger(req, res, next) {
   console.log("common logger");
