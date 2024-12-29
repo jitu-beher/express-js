@@ -1,10 +1,11 @@
 const express = require("express");
 
 const app = express();
+app.use(logger);
 
 app.set("view engine", "ejs");
 
-app.get("/", (req, res) => {
+app.get("/", homePagelogger, (req, res) => {
   res.status(500).send("Hi");
 });
 
@@ -18,4 +19,17 @@ app.get("/index", (req, res) => {
 
 const userRouter = require("./router/users");
 app.use("/users", userRouter);
+
+function logger(req, res, next) {
+  console.log("common logger");
+  console.log(req.originalUrl);
+  next();
+}
+
+function homePagelogger(req, res, next) {
+  console.log("home page logger");
+  console.log(req.originalUrl);
+  next();
+}
+
 app.listen(3000);

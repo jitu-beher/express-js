@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 
+router.use(userPagelogger);
+
 router.get("/", (req, res) => {
   res.send("List of users");
 });
@@ -44,5 +46,11 @@ router.param("id", (req, res, next, id) => {
     res.status(500).send("Bad requrest for id " + id);
   }
 });
+
+function userPagelogger(req, res, next) {
+  console.log("user logger");
+  console.log(req.originalUrl);
+  next();
+}
 
 module.exports = router;
