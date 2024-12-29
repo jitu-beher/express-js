@@ -1,11 +1,13 @@
 const express = require("express");
 
 const app = express();
+
 app.use(logger);
+app.use(express.static("public"));
 
 app.set("view engine", "ejs");
 
-app.get("/", homePagelogger, (req, res) => {
+app.get("/home", homePagelogger, (req, res) => {
   res.status(500).send("Hi");
 });
 
